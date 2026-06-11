@@ -4,37 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MCC Building Energy &amp; Activity Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  :root{--bg:#F0F2F5;--header:#1B3A6B;--navy:#1B3A6B;--blue:#2E75B6;--card:#fff;
-        --ink:#1f2733;--muted:#6b7280;--line:#e4e8ee;--red:#DC2626;--amber:#D97706;--green:#16A34A;}
+  :root{--slate:#343A44;--bg:#F2F2F2;--card:#fff;--ink:#23272e;--navy:#343A44;
+        --muted:#6b7280;--line:#e3e5ea;--red:#DC2626;--amber:#D97706;--green:#16A34A;}
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);}
-  header{background:var(--header);color:#fff;padding:20px 26px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;}
-  header h1{font-size:20px;font-weight:700;}
-  header .sub{font-size:12.5px;opacity:.85;margin-top:3px;}
-  header .right{font-size:12px;opacity:.9;text-align:right;}
-  .wrap{max-width:1180px;margin:0 auto;padding:20px 26px 60px;}
+  body{font-family:'Lato',system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--ink);}
+  header{position:relative;overflow:hidden;background:var(--slate);color:#fff;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  header::before{content:"";position:absolute;inset:0;background:url('https://storage1.snappages.site/VCFHFT/assets/images/21064405_1024x1024_2500.png');background-size:620px;opacity:.06;pointer-events:none;}
+  header .brand{display:flex;align-items:center;gap:18px;position:relative;}
+  header .logo{height:38px;width:auto;display:block;}
+  header .back{color:#aeb6c2;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;display:inline-block;margin-bottom:5px;}
+  header .back:hover{color:#fff;}
+  header h1{font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;}
+  header .sub{font-size:11.5px;font-weight:400;letter-spacing:.04em;text-transform:uppercase;opacity:.7;margin-top:5px;}
+  header .right{position:relative;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.8;text-align:right;line-height:1.7;}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 28px 60px;}
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;}
-  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;box-shadow:0 1px 4px rgba(20,30,60,.05);}
-  .kpi .label{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
-  .kpi .val{font-size:27px;font-weight:800;color:var(--navy);margin-top:4px;line-height:1.05;}
-  .kpi .unit{font-size:12px;color:var(--muted);font-weight:600;}
-  .kpi .delta{font-size:12.5px;font-weight:700;margin-top:7px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(20,30,60,.05);}
+  .kpi .label{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;}
+  .kpi .val{font-size:30px;font-weight:900;color:var(--slate);margin-top:5px;line-height:1;}
+  .kpi .unit{font-size:12px;color:var(--muted);font-weight:700;}
+  .kpi .delta{font-size:12px;font-weight:700;margin-top:8px;}
   .delta.bad{color:var(--red);} .delta.good{color:var(--green);} .delta.neutral{color:var(--muted);}
-  .callout{background:#FBEAEA;border:1px solid #F2C9C9;border-left:5px solid var(--red);border-radius:10px;padding:13px 15px;font-size:13.5px;line-height:1.55;color:#7C1D1D;margin:16px 0;}
+  .callout{background:#fff;border:1px solid var(--line);border-left:5px solid var(--red);border-radius:10px;padding:14px 16px;font-size:13.5px;line-height:1.55;color:var(--ink);margin:16px 0;}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media(max-width:820px){.grid2{grid-template-columns:1fr;}}
-  .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:0 1px 4px rgba(20,30,60,.05);}
-  .panel h2{font-size:15px;color:var(--navy);margin-bottom:3px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:17px 19px;box-shadow:0 1px 3px rgba(20,30,60,.05);}
+  .panel h2{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.01em;color:var(--slate);margin-bottom:3px;}
   .panel p.cap{font-size:12px;color:var(--muted);margin-bottom:12px;}
   .chart-box{position:relative;height:270px;}
   .full{grid-column:1/-1;}
   .health{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:10px;margin-bottom:14px;}
-  .stat{background:#F7F9FC;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;}
-  .stat .n{font-size:21px;font-weight:800;color:var(--navy);} .stat .n.warn{color:var(--red);}
-  .stat .t{font-size:11px;color:var(--muted);margin-top:2px;}
-  .flags{list-style:none;} .flags li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px;line-height:1.4;}
+  .stat{background:#F7F8FA;border:1px solid var(--line);border-radius:9px;padding:11px;text-align:center;}
+  .stat .n{font-size:22px;font-weight:900;color:var(--slate);} .stat .n.warn{color:var(--red);}
+  .stat .t{font-size:10.5px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.04em;}
+  .flags{list-style:none;} .flags li{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px;line-height:1.45;}
   .dot{width:9px;height:9px;border-radius:50%;margin-top:5px;flex:none;}
   .dot.high{background:var(--red);}.dot.med{background:var(--amber);}.dot.low{background:var(--muted);}
   footer{color:var(--muted);font-size:11.5px;margin-top:18px;line-height:1.6;}
@@ -42,10 +50,13 @@
 </head>
 <body>
 <header>
-  <div>
-    <a href="index.html" style="color:#cdd9ee;font-size:12px;text-decoration:none;display:inline-block;margin-bottom:6px;">&larr; MCC Operations</a>
-    <h1>MCC Building Energy &amp; Activity Dashboard</h1>
-    <div class="sub">General building energy use &amp; activity trends · aggregated figures only</div>
+  <div class="brand">
+    <img class="logo" src="https://storage1.snappages.site/VCFHFT/assets/images/22645050_962x358_500.png" alt="Maple City Chapel">
+    <div>
+      <a class="back" href="index.html">&larr; Operations</a>
+      <h1>Building Energy &amp; Activity</h1>
+      <div class="sub">Energy use &amp; building activity · aggregated figures</div>
+    </div>
   </div>
   <div class="right" id="headRight"></div>
 </header>
@@ -126,7 +137,7 @@ const DATA = {
 
 /* ----------------------------- render ------------------------------------ */
 const $=id=>document.getElementById(id);
-const navy="#1B3A6B",blue="#2E75B6",red="#DC2626",grey="#9aa4b2",green="#16A34A",amber="#D97706";
+const navy="#343A44",blue="#4C5564",red="#DC2626",grey="#9aa4b2",green="#2F8F5B",amber="#C8842A";
 const mlabel=m=>{const[y,mo]=m.split("-");return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+mo-1]+" '"+y.slice(2);};
 const pct=(c,p)=>Math.round((c/p-1)*100);
 const fmt=n=>Math.round(n).toLocaleString();
@@ -176,7 +187,7 @@ const ovElec=DATA.activityMonths.map(m=>DATA.electric[DATA.months.indexOf(m)]);
 new Chart($("overlay"),{
   data:{labels:DATA.activityMonths.map(mlabel),
     datasets:[
-      {type:"bar",label:"Electricity (kWh)",data:ovElec,backgroundColor:"rgba(46,117,182,.30)",borderColor:blue,yAxisID:"y",order:2},
+      {type:"bar",label:"Electricity (kWh)",data:ovElec,backgroundColor:"rgba(76,85,100,.30)",borderColor:blue,yAxisID:"y",order:2},
       {type:"line",label:"Events",data:DATA.activity,borderColor:green,backgroundColor:green,tension:.25,yAxisID:"y1",order:1,pointRadius:3}
     ]},
   options:{maintainAspectRatio:false,plugins:{legend:{position:"bottom"}},
@@ -202,7 +213,7 @@ const stats=[
 $("health").innerHTML=stats.map(s=>'<div class="stat"><div class="n'+(s.warn?" warn":"")+'">'+s.n+'</div><div class="t">'+s.t+'</div></div>').join("");
 $("flags").innerHTML=o.flags.map(f=>'<li><span class="dot '+f.s+'"></span>'+f.t+'</li>').join("");
 
-$("footer").innerHTML="Part of MCC Metrics · metrics.maplecity.church. Sources: NIPSCO (energy usage), Planning Center Calendar (activity), WebComfort/Autani (operations). "+
+$("footer").innerHTML="Maple City Chapel Operations · ops.maplecity.church. Sources: NIPSCO (energy usage), Planning Center Calendar (activity), WebComfort/Autani (operations). "+
   "Aggregated figures only — no dollar amounts or names. Annual context: "+fmt(DATA.annual.electricKwh)+" kWh &amp; "+fmt(DATA.annual.gasTherms)+
   " therms (rolling 12 mo). One Apr-2025 value is derived from NIPSCO's reported +60% YoY.";
 </script>
