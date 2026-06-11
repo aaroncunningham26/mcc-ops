@@ -126,12 +126,11 @@ const DATA = {
   },
   annual: { electricKwh: 259616, gasTherms: 37891, avgMoElec: 23365, avgMoGas: 1785 },
   ops: {
-    asOf: "2026-06-11", thermostats: 29, thermostatsActive: 29, sensors: 47, sensorErrors: 3,
+    asOf: "2026-06-11", thermostats: 29, thermostatsActive: 29, sensors: 47, sensorErrors: 4,
     occupancyPct: 100, meters: 0, lightingLoads: 6,
     flags: [
       {t:"Occupancy reads 100% — automatic setback isn't engaging", s:"high"},
-      {t:"3 of 47 sensors reporting errors", s:"high"},
-      {t:"Thermostat #17 (Front Desk) has no wireless route — commands not delivered", s:"high"},
+      {t:"4 of 47 sensors reporting errors (Temp AU142310114, Unit #14 kitchen, Unit #21, Unit #24)", s:"high"},
       {t:"Schedules have a Fri/Sat gap and shallow setbacks (65/75)", s:"med"},
       {t:"Stale automation rules (Parking Lot Lights last ran Nov 2024)", s:"med"},
       {t:"No energy meters in the EMS — no internal kWh/therm tracking", s:"med"},
