@@ -15,7 +15,8 @@
         --muted:#6b7280;--line:#e3e5ea;--red:#DC2626;--amber:#D97706;--green:#16A34A;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Lato',system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--ink);}
-  header{position:relative;overflow:hidden;background:var(--slate);color:#fff;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+  header{position:relative;overflow:hidden;background:var(--slate);color:#fff;}
+  header .bar{max-width:1180px;margin:0 auto;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;position:relative;}
   header::before{content:"";position:absolute;inset:0;background:url('https://storage1.snappages.site/VCFHFT/assets/images/21064405_1024x1024_2500.png');background-size:620px;opacity:.06;pointer-events:none;}
   header .brand{display:flex;align-items:center;gap:18px;position:relative;}
   header .logo{height:38px;width:auto;display:block;}
@@ -52,6 +53,7 @@
 </head>
 <body>
 <header>
+  <div class="bar">
   <div class="brand">
     <img class="logo" src="https://storage1.snappages.site/VCFHFT/assets/images/22645050_962x358_500.png" alt="Maple City Chapel">
     <div>
@@ -61,6 +63,7 @@
     </div>
   </div>
   <div class="right" id="headRight"></div>
+  </div>
 </header>
 
 <div class="wrap">
