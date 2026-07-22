@@ -144,14 +144,16 @@ const DATA = {
 const $=id=>document.getElementById(id);
 const navy="#343A44",blue="#4C5564",red="#DC2626",grey="#9aa4b2",green="#2F8F5B",amber="#C8842A";
 const mlabel=m=>{const[y,mo]=m.split("-");return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+mo-1]+" '"+y.slice(2);};
+const fullMonth=m=>{const[y,mo]=m.split("-");return ["January","February","March","April","May","June","July","August","September","October","November","December"][+mo-1]+" "+y;};
+const latestMonth=DATA.months[DATA.months.length-1];
 const pct=(c,p)=>Math.round((c/p-1)*100);
 const fmt=n=>Math.round(n).toLocaleString();
 
 $("headRight").innerHTML="Updated "+DATA.updated+"<br>Data through "+DATA.dataThrough;
 
 // KPIs
-const elecMay=DATA.electric[DATA.electric.length-1], elecMay25=DATA.electric[0];
-const gasMay=DATA.gas[DATA.gas.length-1], gasMay25=DATA.gas[0];
+const elecLatest=DATA.electric[DATA.electric.length-1], elecLatest25=DATA.electric[0];
+const gasLatest=DATA.gas[DATA.gas.length-1], gasLatest25=DATA.gas[0];
 const w=DATA.window;
 const actYoY=pct(w.events2026,w.events2025);
 const idx25=w.elec2025/w.events2025, idx26=w.elec2026/w.events2026;
@@ -159,8 +161,8 @@ const elecWinYoY=pct(w.elec2026,w.elec2025);
 function delta(p,badUp){const up=p>=0,cls=up?(badUp?"bad":"good"):(badUp?"good":"bad");
   return '<div class="delta '+cls+'">'+(up?"▲":"▼")+" "+Math.abs(p)+"% vs a year ago</div>";}
 const kpis=[
-  {l:"Electricity · May 2026",v:fmt(elecMay),u:" kWh",d:delta(pct(elecMay,elecMay25),true)},
-  {l:"Natural gas · May 2026",v:fmt(gasMay),u:" therms",d:delta(pct(gasMay,gasMay25),true)},
+  {l:"Electricity · "+fullMonth(latestMonth),v:fmt(elecLatest),u:" kWh",d:delta(pct(elecLatest,elecLatest25),true)},
+  {l:"Natural gas · "+fullMonth(latestMonth),v:fmt(gasLatest),u:" therms",d:delta(pct(gasLatest,gasLatest25),true)},
   {l:"Building activity · "+w.label,v:fmt(w.events2026),u:" events",d:delta(actYoY,false)},
   {l:"Energy per event · "+w.label,v:fmt(idx26),u:" kWh/event",d:delta(pct(idx26,idx25),true)}
 ];
